@@ -97,7 +97,7 @@ All methods are accessible from the renderer process through `window.sdkApi` (ex
 Returns the unique identifier assigned to this SDK installation.
 
 ```js
-const { ok, uuid } = await window.sdkApi.get_uuid();
+const { ok, uuid } = brd_sdk.get_uuid();
 ```
 
 ---
@@ -107,7 +107,7 @@ const { ok, uuid } = await window.sdkApi.get_uuid();
 Returns the tracking ID for the current session. This is distinct from the UUID and may change across sessions.
 
 ```js
-const { ok, tracking_id } = await window.sdkApi.get_tracking_id();
+const { ok, tracking_id } = brd_sdk.get_tracking_id();
 ```
 
 ---
@@ -122,7 +122,7 @@ Returns the current service status and the user's consent choice.
 | `opt_in` | `boolean \| null` | `true` if the user has opted in, `false` if opted out, `null` if no choice has been made yet. |
 
 ```js
-const { status_name, opt_in } = await window.sdkApi.get_status();
+const { status_name, opt_in } = brd_sdk.get_status();
 ```
 
 ---
@@ -132,7 +132,7 @@ const { status_name, opt_in } = await window.sdkApi.get_status();
 Returns `true` if the SDK is supported on the current platform/OS version.
 
 ```js
-const { ok, supported } = await window.sdkApi.is_supported();
+const { ok, supported } = brd_sdk.is_supported();
 ```
 
 ---
@@ -142,7 +142,7 @@ const { ok, supported } = await window.sdkApi.is_supported();
 Opens the built-in Bright Data consent dialog. Use this to prompt the user to opt in at a point of your choosing (e.g. first launch, or when they toggle a setting).
 
 ```js
-await window.sdkApi.show_consent();
+brd_sdk.show_consent();
 ```
 
 ---
@@ -152,7 +152,7 @@ await window.sdkApi.show_consent();
 Opts the user out of web indexing without showing the consent dialog.
 
 ```js
-await window.sdkApi.opt_out();
+brd_sdk.opt_out();
 ```
 
 ---
@@ -162,7 +162,7 @@ await window.sdkApi.opt_out();
 Attempts to repair a broken or out-of-date SDK installation. Call this if `get_status()` reports an unexpected state that persists across restarts.
 
 ```js
-await window.sdkApi.fix_sdk();
+brd_sdk.fix_sdk();
 ```
 
 ---
@@ -176,7 +176,7 @@ Overrides the first sentence displayed on the consent screen (the "benefit" desc
 | `text` | `string` | The custom benefit text to display. |
 
 ```js
-await window.sdkApi.set_benefit_txt('Help improve the internet while you browse.');
+brd_sdk.set_benefit_txt('Help improve the internet while you browse.');
 ```
 
 ---
@@ -190,7 +190,7 @@ Sets the language of the consent screen. Must be called before `show_consent()`.
 | `locale` | `string` | A BCP 47-style locale code (e.g. `"en-US"`, `"fr-FR"`). |
 
 ```js
-await window.sdkApi.set_lang('fr-FR');
+brd_sdk.set_lang('fr-FR');
 ```
 
 ---
@@ -204,7 +204,7 @@ Sets the color of the body text on the consent screen.
 | `argb` | `string` | Color in `#AARRGGBB` hex format (alpha, red, green, blue). |
 
 ```js
-await window.sdkApi.set_consent_txt_color('#FF1A1A2E');
+brd_sdk.set_consent_txt_color('#FF1A1A2E');
 ```
 
 ---
@@ -214,7 +214,7 @@ await window.sdkApi.set_consent_txt_color('#FF1A1A2E');
 Sets the color of your application name as it appears on the consent screen.
 
 ```js
-await window.sdkApi.set_consent_app_name_color('#FF0055FF');
+brd_sdk.set_consent_app_name_color('#FF0055FF');
 ```
 
 ---
@@ -224,7 +224,7 @@ await window.sdkApi.set_consent_app_name_color('#FF0055FF');
 Sets the background color of the consent dialog.
 
 ```js
-await window.sdkApi.set_consent_bg_color('#FFFFFFFF');
+brd_sdk.set_consent_bg_color('#FFFFFFFF');
 ```
 
 ---
@@ -234,7 +234,7 @@ await window.sdkApi.set_consent_bg_color('#FFFFFFFF');
 Sets the color of the action buttons on the consent dialog.
 
 ```js
-await window.sdkApi.set_consent_btn_color('#FF00AA44');
+brd_sdk.set_consent_btn_color('#FF00AA44');
 ```
 
 > **Color format note:** All color methods accept `#AARRGGBB` (8-digit hex with alpha). The HTML `<input type="color">` produces `#rrggbb`; prefix with `FF` for full opacity, e.g. `#FF` + `rrggbb`.
