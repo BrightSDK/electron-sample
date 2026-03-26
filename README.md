@@ -116,8 +116,22 @@ Returns the current service status and the user's consent choice.
 
 | Field | Type | Description |
 |---|---|---|
-| `status_name` | `string` | Human-readable service state (e.g. `"Running"`, `"Connected"`, `"Idle"`). |
+| `status_name` | `string` | One of the service state values listed below. |
 | `opt_in` | `boolean \| null` | `true` if the user has opted in, `false` if opted out, `null` if no choice has been made yet. |
+
+Possible `status_name` values:
+
+| Value | Description |
+|---|---|
+| `"None"` | Status has not been received yet. |
+| `"NotInstalled"` | The SDK service is not installed. |
+| `"Installed"` | The service is installed but has not started yet. |
+| `"NotRunning"` | The service is installed but not currently running. |
+| `"Running"` | The service is running, but not yet connected to the peer network, either because user opted-out or connection was not yet established.|
+| `"Disconnected"` | The service is running but has lost its network connection. |
+| `"Blocked"` | The service is blocked. |
+| `"Connected"` | The service is running and connected to the network. |
+| `"Peer"` | The service is operating in peer mode. |
 
 ```js
 const { status_name, opt_in } = brd_sdk.get_status();
@@ -241,82 +255,63 @@ brd_sdk.set_consent_btn_color('#FF00AA44');
 
 ### Events
 
-Subscribe to SDK events from the renderer process via the `on_*` methods on `window.sdkApi`.
+`brd_sdk` extends `EventEmitter`. Subscribe to events with the standard `.on()` method in the main process.
 
-#### `on_ready(callback)`
-
-Fired once after `init()` resolves successfully. This is the earliest point at which other API methods can be called safely.
-
-```js
-window.sdkApi.on_ready(() => {
-    console.log('SDK is ready');
-});
-```
-
----
-
-#### `on_init_error(callback(message))`
-
-Fired if `init()` fails. `message` is the error string.
-
-```js
-window.sdkApi.on_init_error(msg => {
-    console.error('SDK init failed:', msg);
-});
-```
-
----
-
-#### `on_status_change(callback({ code, name }))`
+#### `status_change`
 
 Fired whenever the service status changes.
 
-| Field | Type | Description |
+| Argument | Type | Description |
 |---|---|---|
 | `code` | `number` | Numeric status code. |
 | `name` | `string` | Human-readable status name (e.g. `"Running"`, `"Idle"`, `"Stopped"`). |
 
 ```js
-window.sdkApi.on_status_change(({ code, name }) => {
+brd_sdk.on('status_change', (code, name) => {
     console.log(`Service status: ${name} (${code})`);
 });
 ```
 
 ---
 
-#### `on_choice_change(callback({ code, name }))`
+#### `choice_change`
 
 Fired whenever the user's consent choice changes (e.g. after the consent dialog is dismissed).
 
-| Field | Type | Description |
+| Argument | Type | Description |
 |---|---|---|
 | `code` | `number` | Numeric choice code. |
 | `name` | `string` | `"Agree"` (opted in) or `"Disagree"` (opted out). |
 
 ```js
-window.sdkApi.on_choice_change(({ code, name }) => {
+brd_sdk.on('choice_change', (code, name) => {
     const opted_in = name === 'Agree';
+    console.log(`User choice: ${name} (${code})`);
 });
 ```
 
 ---
 
-#### `on_dialog_shown(callback)`
+#### `dialog_shown`
 
 Fired when the consent dialog becomes visible.
 
 ```js
-window.sdkApi.on_dialog_shown(() => console.log('Consent dialog opened'));
+brd_sdk.on('dialog_shown', () => {
+    console.log('Consent dialog opened');
+});
 ```
 
 ---
 
-#### `on_dialog_closed(callback)`
+#### `dialog_closed`
 
-Fired when the consent dialog is dismissed (regardless of the user's choice).
+Fired when the consent dialog is dismissed, regardless of the user's choice.
 
 ```js
-window.sdkApi.on_dialog_closed(() => console.log('Consent dialog closed'));
+brd_sdk.on('dialog_closed', () => {
+    console.log('Consent dialog closed');
+});
 ```
 
 ---
