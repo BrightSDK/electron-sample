@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; script-src 'self'; style-src 'self';" />
+  <title>BRD SDK Sample App</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>🔵 BRD SDK Sample App</h1>
+
+  <!-- Status card -->
+  <section id="status-card">
+    <h2>SDK Status</h2>
+    <div class="status-row">
+      <div class="dot grey" id="init-dot"></div>
+      <span id="sdk-init-status">Initialising…</span>
+    </div>
+    <div class="status-row">
+      <div class="dot grey" id="service-dot"></div>
+      <span id="service-status">Service: unknown</span>
+    </div>
+    <div class="status-row">
+      <div class="dot grey" id="consent-dot"></div>
+      <span id="consent-status">Consent: unknown</span>
+    </div>
+    <div class="status-row" style="margin-top:6px">
+      <span id="uuid-display">UUID: —</span>
+    </div>
+    <div class="status-row">
+      <span id="tracking-id-display">Tracking ID: —</span>
+    </div>
+  </section>
+
+  <!-- Settings -->
+  <section id="settings">
+    <h2>Settings</h2>
+    <div class="setting-row">
+      <div>
+        <div class="setting-label">Web Indexing</div>
+        <div class="setting-desc">When enabled, you will see fewer ads.</div>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="toggle-web-indexing" disabled />
+        <span class="toggle-track"></span>
+      </label>
+    </div>
+    <div class="setting-row" style="margin-top:16px">
+      <div>
+        <div class="setting-label">Developer Mode</div>
+        <div class="setting-desc">Show Actions and Event Log panels.</div>
+      </div>
+      <label class="toggle">
+        <input type="checkbox" id="toggle-dev-mode" />
+        <span class="toggle-track"></span>
+      </label>
+    </div>
+    <div class="setting-row" style="margin-top:16px" id="setting-consent-customizer">
+      <div>
+        <div class="setting-label">Consent Customizer</div>
+        <div class="setting-desc">Modify the built-in consent window.</div>
+      </div>
+      <button class="btn-secondary" id="btn-consent-customizer" disabled>Show</button>
+    </div>
+  </section>
+
+  <!-- Actions -->
+  <section id="actions">
+    <h2>Actions</h2>
+    <div class="btn-row">
+      <button class="btn-primary"   id="btn-fix"          disabled>fix_sdk()</button>
+      <button class="btn-secondary" id="btn-get-uuid"     disabled>get_uuid()</button>
+      <button class="btn-secondary" id="btn-show-consent" disabled>show_consent()</button>
+      <button class="btn-secondary" id="btn-is-supported"    disabled>is_supported()</button>
+      <button class="btn-secondary" id="btn-get-status"      disabled>get_status()</button>
+      <button class="btn-secondary" id="btn-get-tracking-id" disabled>get_tracking_id()</button>
+    </div>
+  </section>
+
+  <!-- Consent Customizer screen -->
+  <section id="customizer-screen">
+    <div class="customizer-header">
+      <button class="btn-secondary" id="btn-customizer-back">← Back</button>
+      <h2>Consent Customizer</h2>
+    </div>
+
+    <div class="customizer-field">
+      <label class="customizer-label" for="input-benefit-txt">Benefit Text</label>
+      <div class="customizer-desc">First sentence shown on the consent screen describing user benefits.</div>
+      <div class="customizer-row">
+        <input type="text" id="input-benefit-txt" class="customizer-text-input" placeholder="e.g. Help improve the internet" />
+        <button class="btn-primary customizer-apply" data-field="benefit_txt">set_benefit_txt()</button>
+      </div>
+    </div>
+
+    <div class="customizer-field">
+      <label class="customizer-label" for="select-lang">Language</label>
+      <div class="customizer-desc">Language of the consent screen. Default: en-US.</div>
+      <div class="customizer-row">
+        <select id="select-lang" class="customizer-select">
+          <option value="en-US">en-US — English</option>
+          <option value="de-De">de-De — German</option>
+          <option value="es-Es">es-Es — Spanish</option>
+          <option value="fr-FR">fr-FR — French</option>
+          <option value="it-IT">it-IT — Italian</option>
+          <option value="pt-PT">pt-PT — Portuguese</option>
+          <option value="ru-RU">ru-RU — Russian</option>
+          <option value="zh-CN">zh-CN — Chinese (Simplified)</option>
+        </select>
+        <button class="btn-primary customizer-apply" data-field="lang">set_lang()</button>
+      </div>
+    </div>
+
+    <div class="customizer-field">
+      <label class="customizer-label" for="input-txt-color">Consent Text Color</label>
+      <div class="customizer-desc">Color of the consent screen body text. Format: #AARRGGBB (hex argb).</div>
+      <div class="customizer-row">
+        <input type="color" id="input-txt-color" value="#000000" />
+        <span class="color-hex-display" id="hex-txt-color">#FF000000</span>
+        <button class="btn-primary customizer-apply" data-field="consent_txt_color">set_consent_txt_color()</button>
+      </div>
+    </div>
+
+    <div class="customizer-field">
+      <label class="customizer-label" for="input-app-name-color">App Name Text Color</label>
+      <div class="customizer-desc">Color of the application name text. Format: #AARRGGBB (hex argb).</div>
+      <div class="customizer-row">
+        <input type="color" id="input-app-name-color" value="#000000" />
+        <span class="color-hex-display" id="hex-app-name-color">#FF000000</span>
+        <button class="btn-primary customizer-apply" data-field="consent_app_name_color">set_consent_app_name_color()</button>
+      </div>
+    </div>
+
+    <div class="customizer-field">
+      <label class="customizer-label" for="input-bg-color">Background Color</label>
+      <div class="customizer-desc">Background color of the consent screen. Format: #AARRGGBB (hex argb).</div>
+      <div class="customizer-row">
+        <input type="color" id="input-bg-color" value="#ffffff" />
+        <span class="color-hex-display" id="hex-bg-color">#FFFFFFFF</span>
+        <button class="btn-primary customizer-apply" data-field="consent_bg_color">set_consent_bg_color()</button>
+      </div>
+    </div>
+
+    <div class="customizer-field">
+      <label class="customizer-label" for="input-btn-color">Button Color</label>
+      <div class="customizer-desc">Color of the consent/disagree buttons. Format: #AARRGGBB (hex argb).</div>
+      <div class="customizer-row">
+        <input type="color" id="input-btn-color" value="#0f3460" />
+        <span class="color-hex-display" id="hex-btn-color">#FF0F3460</span>
+        <button class="btn-primary customizer-apply" data-field="consent_btn_color">set_consent_btn_color()</button>
+      </div>
+    </div>
+
+    <div class="customizer-field">
+      <label class="customizer-label">Preview</label>
+      <div class="customizer-desc">Launch the consent window to preview your customizations.</div>
+      <div class="customizer-row">
+        <button class="btn-primary" id="btn-customizer-show-consent" disabled>show_consent()</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event log -->
+  <section id="log-card">
+    <h2>Event Log</h2>
+    <div id="log"></div>
+  </section>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

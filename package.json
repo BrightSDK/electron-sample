@@ -1,0 +1,32 @@
+{
+  "name": "electron-sample",
+  "version": "1.0.0",
+  "description": "Sample Electron application demonstrating the Bright Data SDK API",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --x64",
+    "postinstall": "electron-rebuild"
+  },
+  "build": {
+    "appId": "win_brightdata.electron_sample_app",
+    "productName": "BRD SDK Sample App",
+    "win": {
+      "target": "nsis"
+    },
+    "files": [
+      "**/*"
+    ]
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "brd-sdk": "file:../sdk"
+  },
+  "devDependencies": {
+    "@electron/rebuild": "^4.0.3",
+    "electron": "^29.0.0",
+    "electron-builder": "^26.8.1"
+  }
+}
