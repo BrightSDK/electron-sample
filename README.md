@@ -90,22 +90,22 @@ await brd_sdk.init(appId, options);
 
 ### Methods
 
-#### `get_uuid() → { ok, uuid }`
+#### `get_uuid() → string`
 
 Returns the unique identifier assigned to this SDK installation.
 
 ```js
-const { ok, uuid } = brd_sdk.get_uuid();
+const uuid = brd_sdk.get_uuid();
 ```
 
 ---
 
-#### `get_tracking_id() → { ok, tracking_id }`
+#### `get_tracking_id() → string`
 
 Returns the tracking ID for the current session. This is distinct from the UUID and may change across sessions.
 
 ```js
-const { ok, tracking_id } = brd_sdk.get_tracking_id();
+const tracking_id = brd_sdk.get_tracking_id();
 ```
 
 ---
@@ -125,17 +125,17 @@ const { status_name, opt_in } = brd_sdk.get_status();
 
 ---
 
-#### `is_supported() → { ok, supported }`
+#### `is_supported() → bool`
 
 Returns `true` if the SDK is supported on the current platform/OS version.
 
 ```js
-const { ok, supported } = brd_sdk.is_supported();
+const supported = brd_sdk.is_supported();
 ```
 
 ---
 
-#### `show_consent() → { ok }`
+#### `show_consent() → void`
 
 Opens the built-in Bright Data consent dialog. Use this to prompt the user to opt in at a point of your choosing (e.g. first launch, or when they toggle a setting).
 
@@ -145,7 +145,7 @@ brd_sdk.show_consent();
 
 ---
 
-#### `opt_out() → { ok }`
+#### `opt_out() → void`
 
 Opts the user out of web indexing without showing the consent dialog.
 
@@ -155,7 +155,7 @@ brd_sdk.opt_out();
 
 ---
 
-#### `fix_sdk() → { ok }`
+#### `fix_sdk() → void`
 
 Attempts to repair a broken or out-of-date SDK installation. Call this if `get_status()` reports an unexpected state that persists across restarts.
 
@@ -165,7 +165,7 @@ brd_sdk.fix_sdk();
 
 ---
 
-#### `set_benefit_txt(text) → { ok }`
+#### `set_benefit_txt(text) → void`
 
 Overrides the first sentence displayed on the consent screen (the "benefit" description shown to the user). Must be called before `show_consent()`.
 
@@ -179,7 +179,7 @@ brd_sdk.set_benefit_txt('Help improve the internet while you browse.');
 
 ---
 
-#### `set_lang(locale) → { ok }`
+#### `set_lang(locale) → void`
 
 Sets the language of the consent screen. Must be called before `show_consent()`. See [Supported Languages](#supported-languages) for valid values.
 
@@ -193,7 +193,7 @@ brd_sdk.set_lang('fr-FR');
 
 ---
 
-#### `set_consent_txt_color(argb) → { ok }`
+#### `set_consent_txt_color(argb) → void`
 
 Sets the color of the body text on the consent screen.
 
@@ -207,7 +207,7 @@ brd_sdk.set_consent_txt_color('#FF1A1A2E');
 
 ---
 
-#### `set_consent_app_name_color(argb) → { ok }`
+#### `set_consent_app_name_color(argb) → void`
 
 Sets the color of your application name as it appears on the consent screen.
 
@@ -217,7 +217,7 @@ brd_sdk.set_consent_app_name_color('#FF0055FF');
 
 ---
 
-#### `set_consent_bg_color(argb) → { ok }`
+#### `set_consent_bg_color(argb) → void`
 
 Sets the background color of the consent dialog.
 
@@ -227,7 +227,7 @@ brd_sdk.set_consent_bg_color('#FFFFFFFF');
 
 ---
 
-#### `set_consent_btn_color(argb) → { ok }`
+#### `set_consent_btn_color(argb) → void`
 
 Sets the color of the action buttons on the consent dialog.
 
