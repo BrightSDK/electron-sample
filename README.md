@@ -88,8 +88,6 @@ await brd_sdk.init(appId, options);
 
 ## API Reference
 
-All methods are accessible from the renderer process through `window.sdkApi` (exposed via `contextBridge` in `preload.js`). Every method returns a Promise.
-
 ### Methods
 
 #### `get_uuid() → { ok, uuid }`
