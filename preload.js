@@ -8,6 +8,8 @@ try {
         get_status:   ()     => ipcRenderer.invoke('sdk:get_status'),
         show_consent:    ()     => ipcRenderer.invoke('sdk:show_consent'),
         opt_out:         ()     => ipcRenderer.invoke('sdk:opt_out'),
+        opt_in:          ()     => ipcRenderer.invoke('sdk:opt_in'),
+        close:           ()     => ipcRenderer.invoke('sdk:close'),
         is_supported:    ()     => ipcRenderer.invoke('sdk:is_supported'),
         get_tracking_id: ()     => ipcRenderer.invoke('sdk:get_tracking_id'),
         set_benefit_txt:                   (v) => ipcRenderer.invoke('sdk:set_benefit_txt', v),

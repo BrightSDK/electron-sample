@@ -30,7 +30,7 @@ function enable_buttons() {
     ['btn-fix', 'btn-get-uuid',
      'btn-show-consent', 'btn-is-supported', 'btn-get-status',
      'btn-get-tracking-id', 'btn-consent-customizer',
-     'btn-customizer-show-consent'].forEach(id => {
+     'btn-customizer-show-consent', 'btn-opt-in', 'btn-close'].forEach(id => {
         document.getElementById(id).disabled = false;
     });
     document.getElementById('toggle-web-indexing').disabled = false;
@@ -171,6 +171,20 @@ document.getElementById('btn-get-tracking-id').addEventListener('click', async (
     } else {
         log(`get_tracking_id() error: ${res.error}`, 'err');
     }
+});
+
+document.getElementById('btn-opt-in').addEventListener('click', async () => {
+    log('Calling opt_in()…');
+    const res = await window.sdkApi.opt_in();
+    if (res.ok) log('opt_in() called', 'ok');
+    else        log(`opt_in() error: ${res.error}`, 'err');
+});
+
+document.getElementById('btn-close').addEventListener('click', async () => {
+    log('Calling close()…');
+    const res = await window.sdkApi.close();
+    if (res.ok) log('close() called', 'ok');
+    else        log(`close() error: ${res.error}`, 'err');
 });
 
 document.getElementById('toggle-web-indexing').addEventListener('change', async function() {

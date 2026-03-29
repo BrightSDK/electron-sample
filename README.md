@@ -169,6 +169,26 @@ brd_sdk.opt_out();
 
 ---
 
+#### `opt_in() → void`
+
+Opts the user in to web indexing directly, without showing the consent dialog. Use this when you have obtained consent through your own UI flow in combination with skip_consent = true on init().
+
+```js
+brd_sdk.opt_in();
+```
+
+---
+
+#### `close() → void`
+
+Shuts down the SDK and releases all resources. Use this to forcibly close the SDK when your app is terminated.
+
+```js
+brd_sdk.close();
+```
+
+---
+
 #### `fix_sdk() → void`
 
 Attempts to repair a broken or out-of-date SDK installation. Call this if `get_status()` reports an unexpected state that persists across restarts.

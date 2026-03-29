@@ -27,6 +27,14 @@ const api = {
         brd_sdk.opt_out();
         return { ok: true };
     },
+    opt_in: () => {
+        brd_sdk.opt_in();
+        return { ok: true };
+    },
+    close: () => {
+        brd_sdk.close();
+        return { ok: true };
+    },
     is_supported: () => ({ ok: true, supported: brd_sdk.is_supported() }),
     get_tracking_id: () => ({ ok: true, tracking_id: brd_sdk.get_tracking_id() }),
     set_benefit_txt:                   (_e, val) => { brd_sdk.set_benefit_txt(val);                   return { ok: true }; },
