@@ -33,7 +33,9 @@ async function init_sdk() {
         await brd_sdk.init(
             'win_brightdata.electron_sample_app',
             {
-                app_path:     path.dirname(app.getPath('exe')),
+                app_path:     app.isPackaged
+                                ? path.dirname(app.getPath('exe'))
+                                : path.join(__dirname, 'brd_sdk_dist'),
                 app_name:     'BRD SDK Sample App',
                 logo_link:    'https://brightdata.com/logo.png',
                 skip_consent: false,

@@ -14,15 +14,22 @@
     "win": {
       "target": "nsis"
     },
+    "extraFiles": [
+      {
+        "from": "brd_sdk_dist",
+        "to": "."
+      }
+    ],
     "files": [
-      "**/*"
+      "**/*",
+      "!brd_sdk_dist/**"
     ]
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "brd-sdk": "file:../sdk"
+    "brd-sdk": "github:BrightSDK/electron-plugin"
   },
   "devDependencies": {
     "@electron/rebuild": "^4.0.3",
