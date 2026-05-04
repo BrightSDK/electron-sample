@@ -2,9 +2,9 @@
 
 const { app, BrowserWindow } = require('electron');
 const path = require('path');
-const { init_ipc, emit } = require('./ipc');
+const { init_ipc, emit } = require('./src/ipc');
 const brd_sdk = require('brd-sdk');
-const win_ref = require('./window');
+const win_ref = require('./src/window');
 
 process.on('uncaughtException', err => console.error('[uncaughtException]', err.stack || err));
 process.on('unhandledRejection', err => console.error('[unhandledRejection]', err));
@@ -15,7 +15,7 @@ function createWindow() {
         height: 680,
         resizable: false,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
+            preload: path.join(__dirname, 'src', 'preload.js'),
             contextIsolation: true,
             nodeIntegration: false,
             sandbox: false,
@@ -34,7 +34,7 @@ async function init_sdk() {
             'win_brightdata.electron_sample_app',
             {
                 app_path:     app.isPackaged
-                                ? path.dirname(app.getPath('exe'))
+                                ? path.join(path.dirname(app.getPath('exe')), 'resources')
                                 : path.join(__dirname, 'brd_sdk_dist'),
                 app_name:     'BRD SDK Sample App',
                 logo_link:    'https://brightdata.com/logo.png',

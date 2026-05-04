@@ -287,4 +287,3 @@ document.querySelectorAll('.customizer-apply').forEach(btn => {
         else        log(`${cf.api}() error: ${res.error}`, 'err');
     });
 });
-

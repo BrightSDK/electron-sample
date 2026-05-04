@@ -55,4 +55,4 @@ const init_ipc = () => {
     brd_sdk.on('dialog_closed', ()           => emit('sdk:dialog_closed'));
 };
 
-module.exports = { init_ipc, emit };
+module.exports = { init_ipc, emit, api };

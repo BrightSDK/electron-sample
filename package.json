@@ -6,6 +6,7 @@
   "scripts": {
     "start": "electron .",
     "build": "electron-builder --win --x64",
+    "test": "mocha tests/*.test.js",
     "postinstall": "electron-rebuild"
   },
   "build": {
@@ -14,16 +15,23 @@
     "win": {
       "target": "nsis"
     },
-    "extraFiles": [
-      {
-        "from": "brd_sdk_dist",
-        "to": "."
-      }
+    "extraResources": [
+      { "from": "brd_sdk_dist/lum_sdk64.dll",     "to": "." },
+      { "from": "brd_sdk_dist/lum_sdk32.dll",     "to": "." },
+      { "from": "brd_sdk_dist/net_updater32.exe", "to": "." },
+      { "from": "brd_sdk_dist/brd_config.json",   "to": "." }
     ],
     "files": [
       "**/*",
       "!brd_sdk_dist/**"
-    ]
+    ],
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "requestedExecutionLevel": "admin",
+      "licenseFile": "build/LICENSE_BRIGHTDATA.txt",
+      "include": "build/custom.nsh"
+    }
   },
   "keywords": [],
   "author": "",
@@ -34,6 +42,8 @@
   "devDependencies": {
     "@electron/rebuild": "^4.0.3",
     "electron": "^29.0.0",
-    "electron-builder": "^26.8.1"
+    "electron-builder": "^26.8.1",
+    "mocha": "^11.0.0",
+    "proxyquire": "^2.1.3"
   }
 }

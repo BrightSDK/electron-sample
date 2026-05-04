@@ -1,0 +1,4 @@
+BRD SDK Sample App installs Bright Data components (no execution).
+You will be able to view the component details in full before you accept this
+offer, as well as being able to turn Bright Data on and off directly from the
+'App Settings'. Read more about Bright Data's EULA at https://bright-sdk.com.
